@@ -6,7 +6,7 @@ module.exports = function (app) {
     .get(dummy.home)
 
   app.route('/login')
-    .get(cLogin.login)
+    .post(cLogin.login)
 
   app.use(function (req, res) {
     res.sendStatus(404)
