@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const request = supertest(app)
 const dateExpr = new RegExp(/\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/)
 
-it('Login: Valid Data', async done => {
+test('Login: Valid Data', async done => {
   const res = await request
     .post('/login')
     .send({ email: 'Nicholas@servicesites.nl', password: 'GoGoEstera' })
@@ -20,7 +20,7 @@ it('Login: Valid Data', async done => {
   done()
 })
 
-it('Login: Invalid password', async done => {
+test('Login: Invalid password', async done => {
   const res = await request
     .post('/login')
     .send({ email: 'Nicholas@servicesites.nl', password: 'GoGoEsteraS' })
@@ -32,7 +32,7 @@ it('Login: Invalid password', async done => {
   done()
 })
 
-it('Login: Invalid email', async done => {
+test('Login: Invalid email', async done => {
   const res = await request
     .post('/login')
     .send({ email: 'Nicholas@servicesites.nls', password: 'GoGoEstera' })
@@ -44,7 +44,7 @@ it('Login: Invalid email', async done => {
   done()
 })
 
-it('Login: Missing password', async done => {
+test('Login: Missing password', async done => {
   const res = await request
     .post('/login')
     .send({ email: 'Nicholas@servicesites.nl' })
@@ -56,7 +56,7 @@ it('Login: Missing password', async done => {
   done()
 })
 
-it('Login: Empty password', async done => {
+test('Login: Empty password', async done => {
   const res = await request
     .post('/login')
     .send({ email: 'Nicholas@servicesites.nl', password: '' })
@@ -68,7 +68,7 @@ it('Login: Empty password', async done => {
   done()
 })
 
-it('Login: Missing email', async done => {
+test('Login: Missing email', async done => {
   const res = await request
     .post('/login')
     .send({ password: 'GoGoEstera' })
@@ -79,7 +79,8 @@ it('Login: Missing email', async done => {
   expect(res.body.error).toBe('email required')
   done()
 })
-it('Login: Empty email', async done => {
+
+test('Login: Empty email', async done => {
   const res = await request
     .post('/login')
     .send({ email: '', password: 'GoGoEstera' })

@@ -1,13 +1,20 @@
+/*
+* Datatype reference: https://www.npmjs.com/package/mssql#data-types
+* */
 const sql = require('mssql')
 const config = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   server: process.env.DB_HOST,
   port: parseFloat(process.env.DB_PORT),
-  database: process.env.DB_DATABASE
+  database: process.env.DB_DATABASE,
+  options: {
+    encrypt: false,
+    enableArithAbort: true
+  }
 }
 
-exports.execute = async (queryString, inputs) => {
+const execute = async (queryString, inputs) => {
   const pool = await sql.connect(config)
   const request = await pool.request()
   inputs.forEach(element => {
@@ -15,9 +22,13 @@ exports.execute = async (queryString, inputs) => {
   })
   const response = await request.query(queryString)
   pool.close()
-  return await response
+  return response
 }
 
 sql.on('error', err => {
   console.log(err)
 })
+
+module.exports = {
+  execute
+}

@@ -1,36 +1,40 @@
-const jwt = require('jsonwebtoken')
-const doaLogin = require('../models/login.model')
+const loginRouter = require('express').Router()
+const daoJWT = require('../models/jwt.model')
+const daoLogin = require('../models/login.model')
 
-exports.login = async function (req, res) {
-  if (req.body.password === undefined || req.body.password.length < 1) {
-    res.status(400).json({ error: 'password required' })
-  } else if (req.body.email === undefined || req.body.email.length < 1) {
-    res.status(400).json({ error: 'email required' })
-  } else {
-    const users = await doaLogin.getUsers(req.body.email)
+loginRouter.post('/', async (req, res, next) => {
+  try {
+    if (req.body.password === undefined || req.body.password.length < 1) {
+      return res.status(400).json({ error: 'password required' })
+    }
+
+    if (req.body.email === undefined || req.body.email.length < 1) {
+      return res.status(400).json({ error: 'email required' })
+    }
+
+    const users = await daoLogin.getUsers(req.body.email)
     if (users.rowsAffected < 1) {
-      await res.status(404).json({ error: 'User not found' })
-    } else {
-      let user = {}
-      for (const record of users.recordset) {
-        const isPass = await doaLogin.checkPassword(req.body.password, record.password)
-        if (isPass) {
-          user = record
-        }
-      }
-      if (user.id !== undefined) {
-        doaLogin.updateLastLogin(user.id)
-        const token = jwt.sign({ id: user.id }, process.env.JWT_KEY)
-        delete user.password
-        res.json({ user: user, token: token })
-      } else {
-        res.status(404).json({ error: 'User not found' })
+      return res.status(404).json({ error: 'User not found' })
+    }
+
+    let user = {}
+    for (const record of users.recordset) {
+      const isPass = await daoLogin.checkPassword(req.body.password, record.password)
+      if (isPass) {
+        user = record
       }
     }
+    if (user.id !== undefined) {
+      daoLogin.updateLastLogin(user.id)
+      const token = daoJWT.signRefresh(user)
+      delete user.password
+      return res.json({ user: user, token: token })
+    } else {
+      return res.status(404).json({ error: 'User not found' })
+    }
+  } catch (error) {
+    return next(error)
   }
+})
 
-  /*
-  doaLogin.checkPassword('GoGoEstera', '$2b$10$b3PouS1BH5WQhIVsEZ148uvnhm8ZRvupCueBcmm53D1KzsihLXIx.').then((data) => {
-    res.json(data);
-  }) */
-}
+module.exports = loginRouter

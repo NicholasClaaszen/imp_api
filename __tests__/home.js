@@ -10,9 +10,9 @@ it('Test to see if home ("dummy") works.', async done => {
   done()
 })
 
-it('Test to see if 404 works', async done => {
+it('Test to see if Not Found works - should return 401 for obscurity', async done => {
   const res = await request.get('/404')
 
-  expect(res.status).toBe(404)
+  expect(res.status).toBe(401)
   done()
 })

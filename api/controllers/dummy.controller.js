@@ -1,3 +1,7 @@
-exports.home = function (req, res) {
-  res.json({ message: 'This endpoint is empty' })
-}
+const homeRouter = require('express').Router()
+
+homeRouter.get('/', (req, res, next) => {
+  return res.json({ message: 'This endpoint is empty' })
+})
+
+module.exports = homeRouter
