@@ -1,4 +1,4 @@
-const sql = require('./base.model')
+const sql = require('./sql.model')
 
 const insert = (req) => {
   let id = ''

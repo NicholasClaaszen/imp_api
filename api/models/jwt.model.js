@@ -3,7 +3,7 @@
 * */
 
 const jwt = require('jsonwebtoken')
-const sql = require('./base.model')
+const sql = require('./sql.model')
 const { v4: uuidv4 } = require('uuid')
 
 const signRefresh = (user) => {
@@ -60,7 +60,9 @@ const isTokenRevoked = async (req, payload, done) => {
     }]
   )
   /* Return 'revoked' if session not found */
-  if (result.recordset.length !== 1) {
+  if (result.recordset.length === 0) {
+    console.log(result)
+    console.log(payload)
     return done(null, true)
   }
   /* Otherwise, return 'unrevoked' */

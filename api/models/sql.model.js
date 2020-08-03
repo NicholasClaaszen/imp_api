@@ -14,18 +14,20 @@ const config = {
   }
 }
 
+const pool = new sql.ConnectionPool(config)
+const connection = pool.connect()
+
 const execute = async (queryString, inputs) => {
-  const pool = await sql.connect(config)
-  const request = await pool.request()
+  await connection
+  const request = pool.request()
   inputs.forEach(element => {
     request.input(element.name, sql[element.type], element.val)
   })
   const response = await request.query(queryString)
-  pool.close()
   return response
 }
 
-sql.on('error', err => {
+pool.on('error', err => {
   console.log(err)
 })
 

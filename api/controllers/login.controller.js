@@ -29,9 +29,8 @@ loginRouter.post('/', async (req, res, next) => {
       const token = daoJWT.signRefresh(user)
       delete user.password
       return res.json({ user: user, token: token })
-    } else {
-      return res.status(404).json({ error: 'User not found' })
     }
+    return res.status(404).json({ error: 'User not found' })
   } catch (error) {
     return next(error)
   }
