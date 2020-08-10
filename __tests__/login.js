@@ -28,7 +28,7 @@ test('Login: Invalid password', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(404)
-  expect(res.body.error).toBe('User not found')
+  expect(res.body.error).toBe('not_found')
   done()
 })
 
@@ -40,7 +40,7 @@ test('Login: Invalid email', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(404)
-  expect(res.body.error).toBe('User not found')
+  expect(res.body.error).toBe('not_found')
   done()
 })
 
@@ -52,7 +52,7 @@ test('Login: Missing password', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(400)
-  expect(res.body.error).toBe('password required')
+  expect(res.body.error).toBe('password_required')
   done()
 })
 
@@ -64,7 +64,7 @@ test('Login: Empty password', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(400)
-  expect(res.body.error).toBe('password required')
+  expect(res.body.error).toBe('password_required')
   done()
 })
 
@@ -76,7 +76,7 @@ test('Login: Missing email', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(400)
-  expect(res.body.error).toBe('email required')
+  expect(res.body.error).toBe('email_required')
   done()
 })
 
@@ -88,6 +88,6 @@ test('Login: Empty email', async done => {
     .expect('Content-Type', /json/)
 
   expect(res.status).toBe(400)
-  expect(res.body.error).toBe('email required')
+  expect(res.body.error).toBe('email_required')
   done()
 })
