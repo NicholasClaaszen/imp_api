@@ -1,6 +1,18 @@
 const sql = require('./sql.model')
 
-const get = async () => {
+const get = async (id) => {
+  const result = await sql.execute(
+    'SELECT id, name, icon ' +
+    'FROM category ' +
+    ' WHERE id = @id',
+    [
+      { name: 'id', type: 'NVarChar', val: id }
+    ]
+  )
+  return result
+}
+
+const getAll = async () => {
   const result = await sql.execute(
     'SELECT id, name, icon ' +
     'FROM category ' +
@@ -53,6 +65,7 @@ const remove = async (id) => {
 
 module.exports = {
   get,
+  getAll,
   put,
   post,
   remove
