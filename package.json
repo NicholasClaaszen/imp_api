@@ -11,7 +11,8 @@
   "scripts": {
     "test": "jest --runInBand --verbose",
     "test:watch": "jest --watch",
-    "debug": "nodemon --inspect start.js"
+    "debug": "nodemon --inspect start.js",
+    "start": "nodemon start.js"
   },
   "keywords": [],
   "author": "",
