@@ -1,6 +1,7 @@
 const loginRouter = require('express').Router()
 const daoJWT = require('../models/jwt.model')
 const daoLogin = require('../models/login.model')
+const daoUser = require('../models/user.model')
 
 loginRouter.post('/', async (req, res, next) => {
   try {
@@ -26,6 +27,15 @@ loginRouter.post('/', async (req, res, next) => {
     }
     if (user.id !== undefined) {
       daoLogin.updateLastLogin(user.id)
+      user.roles = []
+      const roles = await daoUser.getRoles(user.id)
+      for (const role of roles.recordset) {
+        if (role.event_series_id !== null) {
+          user.roles.push(role.code + '-' + role.event_series_id)
+        } else {
+          user.roles.push(role.code)
+        }
+      }
       const token = daoJWT.signRefresh(user)
       delete user.password
       return res.json({ user: user, token: token })
