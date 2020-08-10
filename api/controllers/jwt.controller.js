@@ -2,6 +2,9 @@ const jwtRouter = require('express').Router()
 const daoJWT = require('../models/jwt.model')
 
 jwtRouter.get('/refresh', async (req, res, next) => {
+  if (req.user === undefined) {
+    return res.status(400).json({ error: 'Use refresh token' })
+  }
   if (req.user.audience.split('+')[1] !== 'Refresh') {
     return res.status(400).json({ error: 'Use refresh token' })
   }

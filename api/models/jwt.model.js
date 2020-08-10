@@ -61,8 +61,6 @@ const isTokenRevoked = async (req, payload, done) => {
   )
   /* Return 'revoked' if session not found */
   if (result.recordset.length === 0) {
-    console.log(result)
-    console.log(payload)
     return done(null, true)
   }
   /* Otherwise, return 'unrevoked' */

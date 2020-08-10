@@ -1,5 +1,4 @@
-describe ('Test JWT functions', () => {
-
+describe('Test JWT functions', () => {
   const app = require('../server')
   const supertest = require('supertest')
   const request = supertest(app)
@@ -40,7 +39,6 @@ describe ('Test JWT functions', () => {
     expect(res.status).toBe(400)
     done()
   })
-
 
   test('JWT: session logout', async done => {
     const resToken = await request
@@ -88,4 +86,3 @@ describe ('Test JWT functions', () => {
     done()
   })
 })
-

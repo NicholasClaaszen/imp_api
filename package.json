@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --verbose",
+    "test": "jest --runInBand --verbose",
     "test:watch": "jest --watch",
     "debug": "nodemon --inspect start.js"
   },
