@@ -6,16 +6,16 @@ const daoUser = require('../models/user.model')
 loginRouter.post('/', async (req, res, next) => {
   try {
     if (req.body.password === undefined || req.body.password.length < 1) {
-      return res.status(400).json({ error: 'password required' })
+      return res.status(400).json({ error: 'password_required' })
     }
 
     if (req.body.email === undefined || req.body.email.length < 1) {
-      return res.status(400).json({ error: 'email required' })
+      return res.status(400).json({ error: 'email_required' })
     }
 
     const users = await daoLogin.getUsers(req.body.email)
     if (users.rowsAffected < 1) {
-      return res.status(404).json({ error: 'User not found' })
+      return res.status(404).json({ error: 'not_found' })
     }
 
     let user = {}
@@ -40,7 +40,7 @@ loginRouter.post('/', async (req, res, next) => {
       delete user.password
       return res.json({ user: user, token: token })
     }
-    return res.status(404).json({ error: 'User not found' })
+    return res.status(404).json({ error: 'not_found' })
   } catch (error) {
     return next(error)
   }
