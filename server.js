@@ -18,6 +18,7 @@ const homeRoute = require('./api/controllers/dummy.controller')
 const loginRoute = require('./api/controllers/login.controller')
 const jwtRoute = require('./api/controllers/jwt.controller')
 const accountRoute = require('./api/controllers/account.controller')
+const categoryRoute = require('./api/controllers/category.controller')
 
 /* Settings */
 const withoutLogin = [
@@ -48,6 +49,7 @@ app.use('/home', homeRoute)
 app.use('/login', loginRoute)
 app.use('/jwt', jwtRoute)
 app.use('/user', accountRoute)
+app.use('/category', categoryRoute)
 
 /* Error Processing */
 app.use((err, req, res, next) => {

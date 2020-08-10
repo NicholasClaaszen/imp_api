@@ -20,7 +20,19 @@ const getRoles = async (id) => {
   return result
 }
 
+const hasRole = async (id, role, series) => {
+  let result = false
+  const roles = await getRoles(id)
+  for (const record of roles.recordset) {
+    if (record.code === role && record.event_series_id === series) {
+      result = true
+    }
+  }
+  return result
+}
+
 module.exports = {
   changePassword,
-  getRoles
+  getRoles,
+  hasRole
 }
