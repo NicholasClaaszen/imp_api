@@ -27,7 +27,7 @@ const getAll = async () => {
     'contact.id, ' +
     'contact.name, ' +
     'contact.email, ' +
-    'contact.phone, ' +
+    'contact.phone ' +
     'FROM contact ' +
     'INNER JOIN organisation ' +
     ' ON contact.organisation_id = organisation.id ' +
@@ -42,16 +42,14 @@ const put = async (id, data) => {
   const result = await sql.execute(
     'UPDATE contact ' +
     'SET name = @name, ' +
-    'email = @email ' +
+    'email = @email, ' +
     'phone = @phone ' +
-    'organisation_id = @organisationId ' +
     'WHERE id = @id',
     [
       { name: 'id', type: 'NVarChar', val: id },
       { name: 'name', type: 'NVarChar', val: data.name },
       { name: 'email', type: 'NVarChar', val: data.email },
-      { name: 'phone', type: 'NVarChar', val: data.phone },
-      { name: 'organisationId', type: 'NVarChar', val: data.organisationId }
+      { name: 'phone', type: 'NVarChar', val: data.phone }
     ]
   )
   return result

@@ -19,13 +19,11 @@ storageLocationRouter.post('/', async (req, res, next) => {
   if (req.body.address === undefined || req.body.address.length === 0) {
     return res.status(400).json({ error: 'missing_address' })
   }
-  if (req.body.organisation === undefined || req.body.organisation.length === 0) {
-    const organisation = await daoOrganisation.getDefault()
-    req.body.organisation = organisation.recordset[0].id
-  }
   if (req.body.contactId === undefined || req.body.contactId.length === 0) {
     req.body.contactId = ''
   }
+  const organisation = await daoOrganisation.getDefault()
+  req.body.organisationId = organisation.recordset[0].id
   await daoStorageLocation.post(req.body)
   return res.status(200).json('OK')
 })
@@ -52,9 +50,6 @@ storageLocationRouter.put('/:id', async (req, res, next) => {
   }
   if (req.body.address === undefined || req.body.address.length === 0) {
     return res.status(400).json({ error: 'missing_address' })
-  }
-  if (req.body.contactId === undefined || req.body.contactId.length === 0) {
-    req.body.contactId = ''
   }
   await daoStorageLocation.put(req.params.id, req.body)
   return res.status(200).json('OK')

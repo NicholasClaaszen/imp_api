@@ -7,6 +7,7 @@ const get = async (id) => {
     ' storage_location.address, ' +
     ' organisation.id as organisation_id, ' +
     ' organisation.name as organisation_name, ' +
+    ' contact.id as contact_id, ' +
     ' contact.name as contact_name, ' +
     ' contact.email as contact_email, ' +
     ' contact.phone as contact_phone ' +
@@ -30,6 +31,7 @@ const getAll = async () => {
     ' storage_location.address, ' +
     ' organisation.id as organisation_id, ' +
     ' organisation.name as organisation_name, ' +
+    ' contact.id as contact_id, ' +
     ' contact.name as contact_name, ' +
     ' contact.email as contact_email, ' +
     ' contact.phone as contact_phone ' +
@@ -38,7 +40,8 @@ const getAll = async () => {
     ' ON storage_location.organisation_id = organisation.id ' +
     'LEFT JOIN contact ' +
     ' ON storage_location.contact_id  = contact.id ' +
-    'WHERE storage_location.active = 1',
+    'WHERE storage_location.active = 1 ' +
+    'ORDER BY organisation.is_default DESC',
     []
   )
   return result
@@ -48,7 +51,7 @@ const put = async (id, data) => {
   const result = await sql.execute(
     'UPDATE storage_location ' +
     'SET name = @name, ' +
-      'address = @address ' +
+      'address = @address, ' +
       'contact_id = @contactId ' +
     'WHERE id = @id',
     [
@@ -68,7 +71,7 @@ const post = async (data) => {
     'VALUES ' +
     '(NEWID(), @organisation, @name, @address, @contactId, 1)',
     [
-      { name: 'organisation', type: 'NVarChar', val: data.organisation },
+      { name: 'organisation', type: 'NVarChar', val: data.organisationId },
       { name: 'name', type: 'NVarChar', val: data.name },
       { name: 'address', type: 'NVarChar', val: data.address },
       { name: 'contactId', type: 'NVarChar', val: data.contactId }

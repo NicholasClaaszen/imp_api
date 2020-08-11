@@ -4,8 +4,9 @@ const get = async (id) => {
   const result = await sql.execute(
     'SELECT organisation.id as id, ' +
     ' organisation.name as name, ' +
-    ' organisation.is_default as default, ' +
+    ' organisation.is_default as isDefault, ' +
     ' organisation.base_url as baseURL, ' +
+    ' contact.id as contact_id, ' +
     ' contact.name as contact_name, ' +
     ' contact.email as contact_email, ' +
     ' contact.phone as contact_phone ' +
@@ -24,8 +25,9 @@ const getDefault = async () => {
   const result = await sql.execute(
     'SELECT organisation.id as id, ' +
     ' organisation.name as name, ' +
-    ' organisation.is_default as default, ' +
+    ' organisation.is_default as isDefault, ' +
     ' organisation.base_url as baseURL, ' +
+    ' contact.id as contact_id, ' +
     ' contact.name as contact_name, ' +
     ' contact.email as contact_email, ' +
     ' contact.phone as contact_phone ' +
@@ -42,8 +44,9 @@ const getAll = async () => {
   const result = await sql.execute(
     'SELECT organisation.id as id, ' +
     ' organisation.name as name, ' +
-    ' organisation.is_default as default, ' +
+    ' organisation.is_default as isDefault, ' +
     ' organisation.base_url as baseURL, ' +
+    ' contact.id as contact_id, ' +
     ' contact.name as contact_name, ' +
     ' contact.email as contact_email, ' +
     ' contact.phone as contact_phone ' +
@@ -60,7 +63,7 @@ const put = async (id, data) => {
   const result = await sql.execute(
     'UPDATE organisation ' +
     'SET name = @name, ' +
-      'contact_id = @contactId ' +
+      'contact_id = @contactId, ' +
       'base_url = @baseURL ' +
     'WHERE id = @id',
     [

@@ -1,5 +1,5 @@
 const contactRouter = require('express').Router()
-const daoContact = require('../models/storage_location.model')
+const daoContact = require('../models/contact.model')
 const daoUser = require('../models/user.model')
 const daoOrganisation = require('../models/organisation.model')
 
@@ -24,7 +24,7 @@ contactRouter.post('/', async (req, res, next) => {
   }
   if (req.body.organisation === undefined || req.body.organisation.length === 0) {
     const organisation = await daoOrganisation.getDefault()
-    req.body.organisation = organisation.recordset[0].id
+    req.body.organisationId = organisation.recordset[0].id
   }
   await daoContact.post(req.body)
   return res.status(200).json('OK')
@@ -51,9 +51,6 @@ contactRouter.put('/:id', async (req, res, next) => {
   }
   if (req.body.phone === undefined || req.body.email.phone === 0) {
     return res.status(400).json({ error: 'missing_phone' })
-  }
-  if (req.body.contactId === undefined || req.body.contactId.length === 0) {
-    req.body.contactId = ''
   }
   await daoContact.put(req.params.id, req.body)
   return res.status(200).json('OK')
