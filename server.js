@@ -18,7 +18,9 @@ const homeRoute = require('./api/controllers/dummy.controller')
 const loginRoute = require('./api/controllers/login.controller')
 const jwtRoute = require('./api/controllers/jwt.controller')
 const accountRoute = require('./api/controllers/account.controller')
+const organisationRoute = require('./api/controllers/organisation.controller')
 const categoryRoute = require('./api/controllers/category.controller')
+const contactRoute = require('./api/controllers/contact.controller')
 const storageLocationRoute = require('./api/controllers/storage_location.controller')
 
 /* Settings */
@@ -50,7 +52,9 @@ app.use('/home', homeRoute)
 app.use('/login', loginRoute)
 app.use('/jwt', jwtRoute)
 app.use('/user', accountRoute)
+app.use('/organisation', organisationRoute)
 app.use('/category', categoryRoute)
+app.use('/contact', contactRoute)
 app.use('/storage/location', storageLocationRoute)
 
 /* Error Processing */

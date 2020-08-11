@@ -1,6 +1,7 @@
 const storageLocationRouter = require('express').Router()
 const daoStorageLocation = require('../models/storage_location.model')
 const daoUser = require('../models/user.model')
+const daoOrganisation = require('../models/organisation.model')
 
 storageLocationRouter.get('/', async (req, res, next) => {
   const locations = await daoStorageLocation.getAll()
@@ -19,7 +20,8 @@ storageLocationRouter.post('/', async (req, res, next) => {
     return res.status(400).json({ error: 'missing_address' })
   }
   if (req.body.organisation === undefined || req.body.organisation.length === 0) {
-    return res.status(400).json({ error: 'missing_organisation' })
+    const organisation = await daoOrganisation.getDefault()
+    req.body.organisation = organisation.recordset[0].id
   }
   if (req.body.contactId === undefined || req.body.contactId.length === 0) {
     req.body.contactId = ''
@@ -50,9 +52,6 @@ storageLocationRouter.put('/:id', async (req, res, next) => {
   }
   if (req.body.address === undefined || req.body.address.length === 0) {
     return res.status(400).json({ error: 'missing_address' })
-  }
-  if (req.body.organisation === undefined || req.body.organisation.length === 0) {
-    return res.status(400).json({ error: 'missing_organisation' })
   }
   if (req.body.contactId === undefined || req.body.contactId.length === 0) {
     req.body.contactId = ''

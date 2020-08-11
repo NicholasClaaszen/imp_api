@@ -15,7 +15,7 @@ const get = async (id) => {
     ' ON storage_location.organisation_id = organisation.id ' +
     'LEFT JOIN contact ' +
     ' ON storage_location.contact_id  = contact.id ' +
-    'WHERE id = @id',
+    'WHERE storage_location.id = @id',
     [
       { name: 'id', type: 'NVarChar', val: id }
     ]
