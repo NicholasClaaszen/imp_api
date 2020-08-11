@@ -19,6 +19,7 @@ const loginRoute = require('./api/controllers/login.controller')
 const jwtRoute = require('./api/controllers/jwt.controller')
 const accountRoute = require('./api/controllers/account.controller')
 const categoryRoute = require('./api/controllers/category.controller')
+const storageLocationRoute = require('./api/controllers/storage_location.controller')
 
 /* Settings */
 const withoutLogin = [
@@ -50,6 +51,7 @@ app.use('/login', loginRoute)
 app.use('/jwt', jwtRoute)
 app.use('/user', accountRoute)
 app.use('/category', categoryRoute)
+app.use('/storage/location', storageLocationRoute)
 
 /* Error Processing */
 app.use((err, req, res, next) => {
