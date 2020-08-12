@@ -1,5 +1,6 @@
 const storageLocationRouter = require('express').Router()
 const daoStorageLocation = require('../models/storage_location.model')
+const daoStorageContainer = require('../models/storage_container.model')
 const daoUser = require('../models/user.model')
 const daoOrganisation = require('../models/organisation.model')
 
@@ -38,6 +39,17 @@ storageLocationRouter.get('/:id', async (req, res, next) => {
     return res.status(404).json({ error: 'not_found' })
   }
   return res.status(200).json(locations.recordset[0])
+})
+
+/*
+* Get all the containers in this location
+* */
+storageLocationRouter.get('/:id/containers', async (req, res, next) => {
+  const containers = await daoStorageContainer.getPerLocation(req.params.id)
+  if (containers.recordset.length === 0) {
+    return res.status(404).json({ error: 'empty' })
+  }
+  return res.status(200).json(containers.recordset)
 })
 
 storageLocationRouter.put('/:id', async (req, res, next) => {

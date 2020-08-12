@@ -22,6 +22,7 @@ const organisationRoute = require('./api/controllers/organisation.controller')
 const categoryRoute = require('./api/controllers/category.controller')
 const contactRoute = require('./api/controllers/contact.controller')
 const storageLocationRoute = require('./api/controllers/storage_location.controller')
+const storageContainerRoute = require('./api/controllers/storage_container.controller')
 
 /* Settings */
 const withoutLogin = [
@@ -56,6 +57,7 @@ app.use('/organisation', organisationRoute)
 app.use('/category', categoryRoute)
 app.use('/contact', contactRoute)
 app.use('/storage/location', storageLocationRoute)
+app.use('/storage/container', storageContainerRoute)
 
 /* Error Processing */
 app.use((err, req, res, next) => {
