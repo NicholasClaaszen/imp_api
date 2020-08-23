@@ -23,6 +23,7 @@ const categoryRoute = require('./api/controllers/category.controller')
 const contactRoute = require('./api/controllers/contact.controller')
 const storageLocationRoute = require('./api/controllers/storage_location.controller')
 const storageContainerRoute = require('./api/controllers/storage_container.controller')
+const propertyRoute = require('./api/controllers/property.controller')
 
 /* Settings */
 const withoutLogin = [
@@ -58,6 +59,7 @@ app.use('/category', categoryRoute)
 app.use('/contact', contactRoute)
 app.use('/storage/location', storageLocationRoute)
 app.use('/storage/container', storageContainerRoute)
+app.use('/property', propertyRoute)
 
 /* Error Processing */
 app.use((err, req, res, next) => {

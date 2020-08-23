@@ -1,5 +1,6 @@
 const categoryRouter = require('express').Router()
 const daoCategory = require('../models/category.model')
+const daoProperty = require('../models/property.model')
 const daoUser = require('../models/user.model')
 
 categoryRouter.get('/', async (req, res, next) => {
@@ -23,15 +24,16 @@ categoryRouter.post('/', async (req, res, next) => {
 })
 
 categoryRouter.get('/:id', async (req, res, next) => {
-  const hasRole = await daoUser.hasRole(req.user.subject, 'organisation', null)
-  if (!hasRole) {
-    return res.status(403).json({ error: 'missing_role' })
-  }
   const categories = await daoCategory.get(req.params.id)
   if (categories.recordset.length === 0) {
     return res.status(404).json({ error: 'not_found' })
   }
   return res.status(200).json(categories.recordset[0])
+})
+
+categoryRouter.get('/:id/properties', async (req, res, next) => {
+  const categories = await daoProperty.get(req.params.id)
+  return res.status(200).json(categories.recordset)
 })
 
 categoryRouter.put('/:id', async (req, res, next) => {
