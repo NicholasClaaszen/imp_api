@@ -1,4 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid')
 const propertyRouter = require('express').Router()
 const daoProperty = require('../models/property.model')
 const daoUser = require('../models/user.model')
@@ -33,7 +33,7 @@ propertyRouter.post('/', async (req, res, next) => {
   }
   const id = uuidv4()
   await daoProperty.post(id, req.body)
-  return res.status(200).json({id})
+  return res.status(200).json({ id })
 })
 
 propertyRouter.get('/:id', async (req, res, next) => {
