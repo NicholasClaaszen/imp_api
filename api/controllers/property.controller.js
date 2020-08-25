@@ -1,7 +1,7 @@
-const { v4: uuidv4 } = require('uuid')
 const propertyRouter = require('express').Router()
-const daoProperty = require('../models/property.model')
-const daoUser = require('../models/user.model')
+const { v4: uuidv4 } = require('uuid')
+const daoProperty = require(`../models/${process.env.DB_TYPE}/property.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 /*
 * Property bits

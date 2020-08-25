@@ -1,7 +1,7 @@
 const categoryRouter = require('express').Router()
-const daoCategory = require('../models/category.model')
-const daoProperty = require('../models/property.model')
-const daoUser = require('../models/user.model')
+const daoCategory = require(`../models/${process.env.DB_TYPE}/category.model`)
+const daoProperty = require(`../models/${process.env.DB_TYPE}/property.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 categoryRouter.get('/', async (req, res, next) => {
   const categories = await daoCategory.getAll()
@@ -32,8 +32,8 @@ categoryRouter.get('/:id', async (req, res, next) => {
 })
 
 categoryRouter.get('/:id/properties', async (req, res, next) => {
-  const categories = await daoProperty.get(req.params.id)
-  return res.status(200).json(categories.recordset)
+  const properties = await daoProperty.getForCategory(req.params.id)
+  return res.status(200).json(properties.recordset)
 })
 
 categoryRouter.put('/:id', async (req, res, next) => {

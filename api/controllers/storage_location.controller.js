@@ -1,8 +1,8 @@
 const storageLocationRouter = require('express').Router()
-const daoStorageLocation = require('../models/storage_location.model')
-const daoStorageContainer = require('../models/storage_container.model')
-const daoUser = require('../models/user.model')
-const daoOrganisation = require('../models/organisation.model')
+const daoStorageLocation = require(`../models/${process.env.DB_TYPE}/storage_location.model`)
+const daoStorageContainer = require(`../models/${process.env.DB_TYPE}/storage_container.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
+const daoOrganisation = require(`../models/${process.env.DB_TYPE}/organisation.model`)
 
 storageLocationRouter.get('/', async (req, res, next) => {
   const locations = await daoStorageLocation.getAll()

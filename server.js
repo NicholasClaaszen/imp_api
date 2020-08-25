@@ -4,9 +4,9 @@ const app = express()
 /* Helpers */
 require('dotenv').config()
 const pathToRegexp = require('path-to-regexp').pathToRegexp
-const daoJWT = require('./api/models/jwt.model')
+const daoJWT = require(`./api/models/${process.env.DB_TYPE}/jwt.model`)
 /* TODO: Decide if I want to leave this on globally - I mostly don't want to right now */
-/* const daoLogging = require('./api/models/logging.model') */
+/* const daoLogging = require('./api/models/logging.model`) */
 
 /* Middleware imports */
 const cors = require('cors')
@@ -24,12 +24,15 @@ const contactRoute = require('./api/controllers/contact.controller')
 const storageLocationRoute = require('./api/controllers/storage_location.controller')
 const storageContainerRoute = require('./api/controllers/storage_container.controller')
 const propertyRoute = require('./api/controllers/property.controller')
+const itemRoute = require('./api/controllers/item.controller')
+const uploadRoute = require('./api/controllers/upload.controller')
 
 /* Settings */
 const withoutLogin = [
   pathToRegexp('/home'),
   pathToRegexp('/login(.*)'),
-  pathToRegexp('/api-docs(.*)')
+  pathToRegexp('/api-docs(.*)'),
+  pathToRegexp('/upload(.*)')
 ]
 
 /* Middleware */
@@ -60,6 +63,8 @@ app.use('/contact', contactRoute)
 app.use('/storage/location', storageLocationRoute)
 app.use('/storage/container', storageContainerRoute)
 app.use('/property', propertyRoute)
+app.use('/item', itemRoute)
+app.use('/upload', uploadRoute)
 
 /* Error Processing */
 app.use((err, req, res, next) => {

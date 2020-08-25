@@ -1,5 +1,5 @@
 const jwtRouter = require('express').Router()
-const daoJWT = require('../models/jwt.model')
+const daoJWT = require(`../models/${process.env.DB_TYPE}/jwt.model`)
 
 jwtRouter.get('/refresh', async (req, res, next) => {
   if (req.user === undefined) {

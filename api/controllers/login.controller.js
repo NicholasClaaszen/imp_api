@@ -1,7 +1,7 @@
 const loginRouter = require('express').Router()
-const daoJWT = require('../models/jwt.model')
-const daoLogin = require('../models/login.model')
-const daoUser = require('../models/user.model')
+const daoJWT = require(`../models/${process.env.DB_TYPE}/jwt.model`)
+const daoLogin = require(`../models/${process.env.DB_TYPE}/login.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 loginRouter.post('/', async (req, res, next) => {
   try {

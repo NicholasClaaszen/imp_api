@@ -1,6 +1,6 @@
 const accountRouter = require('express').Router()
-const daoLogin = require('../models/login.model')
-const daoUser = require('../models/user.model')
+const daoLogin = require(`../models/${process.env.DB_TYPE}/login.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 accountRouter.post('/password', (req, res, next) => {
   /*

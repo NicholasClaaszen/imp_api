@@ -1,7 +1,7 @@
 const storageContainerRouter = require('express').Router()
-const daoStorageContainer = require('../models/storage_container.model')
-const daoOrganisation = require('../models/organisation.model')
-const daoUser = require('../models/user.model')
+const daoStorageContainer = require(`../models/${process.env.DB_TYPE}/storage_container.model`)
+const daoOrganisation = require(`../models/${process.env.DB_TYPE}/organisation.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 storageContainerRouter.get('/', async (req, res, next) => {
   const containers = await daoStorageContainer.getAll()

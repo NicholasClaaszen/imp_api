@@ -5,9 +5,9 @@ GO
 CREATE DATABASE [dev_IMP]
  CONTAINMENT = NONE
  ON  PRIMARY
-( NAME = N'dev_IMP', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\dev_IMP.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'dev_IMP', FILENAME = N'D:\Program Files\Microsoft SQL Server\${process.env.DB_TYPE}15.${process.env.DB_TYPE}SERVER\${process.env.DB_TYPE}\DATA\dev_IMP.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON
-( NAME = N'dev_IMP_log', FILENAME = N'D:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\dev_IMP_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'dev_IMP_log', FILENAME = N'D:\Program Files\Microsoft SQL Server\${process.env.DB_TYPE}15.${process.env.DB_TYPE}SERVER\${process.env.DB_TYPE}\DATA\dev_IMP_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
  WITH CATALOG_COLLATION = DATABASE_DEFAULT
 GO
 

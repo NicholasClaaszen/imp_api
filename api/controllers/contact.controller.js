@@ -1,7 +1,7 @@
 const contactRouter = require('express').Router()
-const daoContact = require('../models/contact.model')
-const daoUser = require('../models/user.model')
-const daoOrganisation = require('../models/organisation.model')
+const daoContact = require(`../models/${process.env.DB_TYPE}/contact.model`)
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
+const daoOrganisation = require(`../models/${process.env.DB_TYPE}/organisation.model`)
 
 contactRouter.get('/', async (req, res, next) => {
   const contacts = await daoContact.getAll()

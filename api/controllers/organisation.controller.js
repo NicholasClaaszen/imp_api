@@ -1,6 +1,6 @@
 const organisationRouter = require('express').Router()
-const daoUser = require('../models/user.model')
-const daoOrganisation = require('../models/organisation.model')
+const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
+const daoOrganisation = require(`../models/${process.env.DB_TYPE}/organisation.model`)
 
 organisationRouter.get('/', async (req, res, next) => {
   const organisations = await daoOrganisation.getAll()

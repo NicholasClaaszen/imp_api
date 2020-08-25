@@ -12,8 +12,8 @@ const get = async (id) => {
     'property_options.position as option_position ' +
     'FROM properties ' +
     'LEFT JOIN property_options ' +
-    ' ON properties.id = property_options.properties_id' +
-    ' WHERE properties.id = @id ' +
+    ' ON properties.id = property_options.properties_id ' +
+    'WHERE properties.id = @id ' +
     'ORDER BY property_options.position ASC',
     [
       { name: 'id', type: 'NVarChar', val: id }
@@ -43,15 +43,17 @@ const getForCategory = async (id) => {
   const result = await sql.execute(
     'SELECT properties.id, ' +
     'properties.name, ' +
-    'properties.drift ' +
-    'category.id as category_id, ' +
-    'category.name as category_name, ' +
-    'category.icon as category_icon ' +
+    'properties.drift, ' +
+    'properties.property_type, ' +
+    'property_options.id as option_id, ' +
+    'property_options.name as option_name, ' +
+    'property_options.position as option_position ' +
     'FROM properties ' +
-    'LEFT JOIN category ' +
-    ' ON properties.category_id = category.id ' +
+    'LEFT JOIN property_options ' +
+    ' ON properties.id = property_options.properties_id ' +
     'WHERE properties.active = 1 ' +
-    'AND category_id = @id',
+    'AND properties.category_id = @id ' +
+    'ORDER BY property_options.position ASC',
     [
       { name: 'id', type: 'NVarChar', val: id }
     ]
