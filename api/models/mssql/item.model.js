@@ -134,8 +134,8 @@ const removeOptions = async (id) => {
     'FROM item_property_options ' +
     'WHERE item_id = @itemId',
   [
-    { name: 'itemId', type: 'NVarChar', val: id }
-  ]
+      { name: 'itemId', type: 'NVarChar', val: id }
+    ]
   )
   return result
 }

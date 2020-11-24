@@ -3,12 +3,22 @@ const { v4: uuidv4 } = require('uuid')
 const daoItem = require(`../models/${process.env.DB_TYPE}/item.model`)
 const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
+const filters = {
+  storageContainer: function(items, storageContainer) {
+    return items.filter(item => item.storage_container_id = storageContainer)
+  }
+}
+
 /*
 * item bits
 * */
 itemRouter.get('/', async (req, res, next) => {
   const properties = await daoItem.getAll()
-  return res.status(200).json(properties.recordset)
+  let result = properties.recordset
+  if(req.params.storageContainer !== undefined) {
+    result = filters.storageContainer(result, req.params.storageContainer)
+  }
+  return res.status(200).json(result)
 })
 
 itemRouter.post('/', async (req, res, next) => {
