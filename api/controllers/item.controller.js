@@ -5,7 +5,7 @@ const daoUser = require(`../models/${process.env.DB_TYPE}/user.model`)
 
 const filters = {
   storageContainer: function(items, storageContainer) {
-    return items.filter(item => item.storage_container_id = storageContainer)
+    return items.filter(item => item.storage_container_id === storageContainer)
   }
 }
 
@@ -16,6 +16,8 @@ itemRouter.get('/', async (req, res, next) => {
   const properties = await daoItem.getAll()
   let result = properties.recordset
   if(req.params.storageContainer !== undefined) {
+    console.log(req.params)
+    console.log(filters.storageContainer(result, req.params.storageContainer))
     result = filters.storageContainer(result, req.params.storageContainer)
   }
   return res.status(200).json(result)
