@@ -15,6 +15,7 @@ const filters = {
 itemRouter.get('/', async (req, res, next) => {
   const properties = await daoItem.getAll()
   let result = properties.recordset
+  console.log(req.params)
   if(req.params.storageContainer !== undefined) {
     console.log(req.params)
     console.log(filters.storageContainer(result, req.params.storageContainer))
